@@ -222,7 +222,7 @@ std::vector<Motion> AStarPlanner::create_motion_model()
   return motion_set;
 }
 
-Motion AStarPlanner::get_motion(const int dx, const int dy, const double cost)
+Motion AStarPlanner::get_motion(const int dx, const int dy, const float cost)
 {
   if (1 < abs(dx) || 1 < abs(dy))
   {
