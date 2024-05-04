@@ -40,6 +40,12 @@ void ObstacleInflater::map_callback(const nav_msgs::OccupancyGrid::ConstPtr &msg
 void ObstacleInflater::inflate_obstacle(const nav_msgs::OccupancyGrid &map)
 {
   inflated_map_ = map;
+  if (inflation_radius_ <= map.info.resolution)
+  {
+    ROS_WARN("inflation_radius is smaller than resolution, so inflation is not executed.");
+    return;
+  }
+
   for (int i = 0; i < map.data.size(); i++)
   {
     if (map.data[i] == 100)

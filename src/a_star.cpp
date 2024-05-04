@@ -52,7 +52,7 @@ void AStarPlanner::goal_callback(const geometry_msgs::PoseStamped::ConstPtr &msg
 void AStarPlanner::process()
 {
   ros::Rate loop_rate(hz_);
-  std::optional<nav_msgs::Path> path = std::nullopt;
+  std::optional<nav_msgs::Path> path;
   while (ros::ok())
   {
     ros::spinOnce();
@@ -61,6 +61,7 @@ void AStarPlanner::process()
     {
       Node start_node = pose2node(initial_pose_.value(), map_.value());
       Node goal_node = pose2node(goal_.value(), map_.value());
+      path.reset();
       path = planning(start_node, goal_node, map_.value(), weight_of_heuristic_);
       add_direction_to_path(goal_.value(), path.value());
       initial_pose_.reset();
@@ -87,6 +88,15 @@ Node AStarPlanner::pose2node(const geometry_msgs::Pose &pose, const nav_msgs::Oc
 nav_msgs::Path
 AStarPlanner::planning(Node start_node, const Node goal_node, const nav_msgs::OccupancyGrid &map, const float w)
 {
+  if (heuristic(start_node, goal_node, w) == 0)
+  {
+    ROS_WARN_STREAM("The start node is the same as the goal node..");
+    ROS_WARN_STREAM("The path consists of only the goal node..");
+    nav_msgs::Path path;
+    path.poses.push_back(calc_pose(goal_node, map));
+    return path;
+  }
+
   std::vector<Node> open_set;
   std::vector<Node> closed_set;
 
@@ -244,7 +254,7 @@ bool AStarPlanner::is_obs(const Node node, const nav_msgs::OccupancyGrid &map)
   const int grid_index = node.index_x + (node.index_y * map.info.width);
   if (grid_index < 0 || map.data.size() <= grid_index)
   {
-    ROS_ERROR_STREAM("The grid index is out of range..");
+    ROS_ERROR_STREAM_THROTTLE(1, "The grid index is out of range..");
     return true;
   }
   return map.data[grid_index] == 100;
@@ -305,8 +315,8 @@ nav_msgs::Path AStarPlanner::create_path(
 geometry_msgs::PoseStamped AStarPlanner::calc_pose(const Node node, const nav_msgs::OccupancyGrid &map)
 {
   geometry_msgs::PoseStamped pose;
-  pose.pose.position.x = node.index_x * map.info.resolution + map.info.origin.position.x;
-  pose.pose.position.y = node.index_y * map.info.resolution + map.info.origin.position.y;
+  pose.pose.position.x = node.index_x * map.info.resolution + map.info.origin.position.x + map.info.resolution / 2.0;
+  pose.pose.position.y = node.index_y * map.info.resolution + map.info.origin.position.y + map.info.resolution / 2.0;
   return pose;
 }
 
