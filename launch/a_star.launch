@@ -10,7 +10,7 @@
     <arg name="global_frame" default="map"/>
     <arg name="debug_mode" default="false"/>
     <arg name="sleep_time" default="0.01"/>
-    <arg name="map_topic" default="/map/inflated_map"/>
+    <arg name="map_topic" default="/map/inflated"/>
     <arg name="initial_pose_topic" default="/initialpose"/>
     <arg name="goal_pose_topic" default="/move_base_simple/goal"/>
     <node pkg="a_star_ros" type="a_star_node" name="a_star_planner" output="screen">
