@@ -97,7 +97,7 @@ AStarPlanner::planning(Node start_node, const Node goal_node, const nav_msgs::Oc
   {
     if (open_set.size() == 0)
     {
-      ROS_WARN_STREAM("Open set is empty..");
+      ROS_ERROR_STREAM("Open set is empty..");
       exit(EXIT_FAILURE);
     }
     move_node_between_sets(current_node, open_set, closed_set);
