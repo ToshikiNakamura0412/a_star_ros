@@ -18,6 +18,10 @@ ObstacleInflater::ObstacleInflater() : private_nh_("~")
 
   inflated_map_pub_ = nh_.advertise<nav_msgs::OccupancyGrid>("/map/inflated", 1);
   raw_map_sub_ = nh_.subscribe("/map", 1, &ObstacleInflater::map_callback, this);
+
+  ROS_INFO_STREAM(ros::this_node::getName() << "node has started..");
+  ROS_INFO_STREAM("hz: " << hz_);
+  ROS_INFO_STREAM("inflation_radius: " << inflation_radius_);
 }
 
 void ObstacleInflater::process()
