@@ -13,7 +13,7 @@
 
 AStarPlanner::AStarPlanner() : private_nh_("~")
 {
-  private_nh_.param<int>("hz", hz_, 10);
+  private_nh_.param<int>("hz", hz_, 2);
   private_nh_.param<std::string>("global_frame", global_frame_, std::string("map"));
   private_nh_.param<float>("weight_of_heuristic", weight_of_heuristic_, 1.0);
   private_nh_.param<bool>("debug_mode", debug_mode_, false);

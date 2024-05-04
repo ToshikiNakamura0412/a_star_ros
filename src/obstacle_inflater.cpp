@@ -16,7 +16,7 @@ ObstacleInflater::ObstacleInflater() : private_nh_("~")
   private_nh_.param<int>("hz", hz_, 1);
   private_nh_.param<float>("inflation_radius", inflation_radius_, 0.15);
 
-  inflated_map_pub_ = nh_.advertise<nav_msgs::OccupancyGrid>("/map/inflated_map", 1);
+  inflated_map_pub_ = nh_.advertise<nav_msgs::OccupancyGrid>("/map/inflated", 1);
   raw_map_sub_ = nh_.subscribe("/map", 1, &ObstacleInflater::map_callback, this);
 }
 

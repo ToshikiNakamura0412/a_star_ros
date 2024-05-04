@@ -65,7 +65,7 @@ Visualization Manager:
       Draw Behind: false
       Enabled: true
       Name: InflatedMap
-      Topic: /map/inflated_map
+      Topic: /map/inflated
       Unreliable: false
       Use Timestamp: false
       Value: true
@@ -98,7 +98,7 @@ Visualization Manager:
       Color: 204; 41; 204
       Enabled: true
       History Length: 1
-      Name: PointStamped
+      Name: CurrentNode
       Queue Size: 10
       Radius: 0.05000000074505806
       Topic: /current_node
@@ -147,12 +147,12 @@ Visualization Manager:
       Enabled: true
       Head Length: 0.07000000029802322
       Head Radius: 0.029999999329447746
-      Name: NearNode
+      Name: NeighborNodes
       Queue Size: 1
       Shaft Length: 0.23000000417232513
       Shaft Radius: 0.009999999776482582
       Shape: Arrow (Flat)
-      Topic: /near_nodes
+      Topic: /neighbor_nodes
       Unreliable: false
       Value: true
   Enabled: true
