@@ -92,6 +92,25 @@ private:
   Node pose2node(const geometry_msgs::Pose &pose, const nav_msgs::OccupancyGrid &map);
 
   /**
+   * @brief Check if the node is obstacle
+   *
+   * @param node node
+   * @param map map
+   * @return true if the node is obstacle
+   * @return false if the node is not obstacle
+   */
+  bool is_obs(const Node node, const nav_msgs::OccupancyGrid &map);
+
+  /**
+   * @brief Check if the node is unknown cell
+   *
+   * @param node node
+   * @param map map
+   * @return true if the node is unknown cell
+   * @return false if the node is not unknown cell
+   */
+  bool is_unknown_cell(const Node node, const nav_msgs::OccupancyGrid &map);
+  /**
    * @brief execute A* algorithm
    *
    * @param start_node start node
@@ -184,16 +203,6 @@ private:
   Motion get_motion(const int dx, const int dy, const float cost);
 
   /**
-   * @brief Check if the node is obstacle
-   *
-   * @param node node
-   * @param map map
-   * @return true if the node is obstacle
-   * @return false if the node is not obstacle
-   */
-  bool is_obs(const Node node, const nav_msgs::OccupancyGrid &map);
-
-  /**
    * @brief Check if the node is in the set
    *
    * @param node node
@@ -265,7 +274,7 @@ private:
    * @param point1 point1
    * @param point2 point2
    * @return geometry_msgs::Quaternion direction
-    */
+   */
   geometry_msgs::Quaternion calc_direction(const geometry_msgs::Point &point1, const geometry_msgs::Point &point2);
 
   /**
