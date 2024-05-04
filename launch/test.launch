@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="rviz_path" default="$(find a_star_ros)/launch/rviz.rviz"/>
+    <arg name="map_path" default="$(find a_star_ros)/maps/map.yaml"/>
+
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(arg rviz_path)"/>
+    <node pkg="a_star_ros" type="obstacle_inflater_node" name="obstacle_inflater" output="screen">
+        <param name="inflation_radius" value="0.15"/>
+    </node>
+    <node pkg="map_server" type="map_server" name="map_server" args="$(arg map_path)" output="screen"/>
+</launch>

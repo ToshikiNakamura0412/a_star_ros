@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>a_star_ros</name>
+  <version>0.0.0</version>
+  <description>The a_star_ros package</description>
+  <maintainer email="tnakamura.amsl@gmail.com">Toshiki Nakamura</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>nav_msgs</depend>
+
+  <test_depend>rostest</test_depend>
+  <test_depend>roslint</test_depend>
+</package>
