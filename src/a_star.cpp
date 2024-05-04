@@ -61,6 +61,19 @@ void AStarPlanner::process()
     {
       Node start_node = pose2node(initial_pose_.value(), map_.value());
       Node goal_node = pose2node(goal_.value(), map_.value());
+      if (is_obs(start_node, map_.value()) || is_obs(goal_node, map_.value()))
+      {
+        ROS_WARN_STREAM("The start node or the goal node is an obstacle..");
+        initial_pose_.reset();
+        continue;
+      }
+      if (is_unknown_cell(start_node, map_.value()) || is_unknown_cell(goal_node, map_.value()))
+      {
+        ROS_WARN_STREAM("The start node or the goal node is an unknown cell..");
+        initial_pose_.reset();
+        continue;
+      }
+
       path.reset();
       path = planning(start_node, goal_node, map_.value(), weight_of_heuristic_);
       add_direction_to_path(goal_.value(), path.value());
@@ -83,6 +96,28 @@ Node AStarPlanner::pose2node(const geometry_msgs::Pose &pose, const nav_msgs::Oc
   node.index_x = static_cast<int>((pose.position.x - map.info.origin.position.x) / map.info.resolution);
   node.index_y = static_cast<int>((pose.position.y - map.info.origin.position.y) / map.info.resolution);
   return node;
+}
+
+bool AStarPlanner::is_obs(const Node node, const nav_msgs::OccupancyGrid &map)
+{
+  const int grid_index = node.index_x + (node.index_y * map.info.width);
+  if (grid_index < 0 || map.data.size() <= grid_index)
+  {
+    ROS_ERROR_STREAM_THROTTLE(1, "The grid index is out of range..");
+    return true;
+  }
+  return map.data[grid_index] == 100;
+}
+
+bool AStarPlanner::is_unknown_cell(const Node node, const nav_msgs::OccupancyGrid &map)
+{
+  const int grid_index = node.index_x + (node.index_y * map.info.width);
+  if (grid_index < 0 || map.data.size() <= grid_index)
+  {
+    ROS_ERROR_STREAM_THROTTLE(1, "The grid index is out of range..");
+    return true;
+  }
+  return map.data[grid_index] == -1;
 }
 
 nav_msgs::Path
@@ -247,17 +282,6 @@ Motion AStarPlanner::get_motion(const int dx, const int dy, const float cost)
   motion.cost = cost;
 
   return motion;
-}
-
-bool AStarPlanner::is_obs(const Node node, const nav_msgs::OccupancyGrid &map)
-{
-  const int grid_index = node.index_x + (node.index_y * map.info.width);
-  if (grid_index < 0 || map.data.size() <= grid_index)
-  {
-    ROS_ERROR_STREAM_THROTTLE(1, "The grid index is out of range..");
-    return true;
-  }
-  return map.data[grid_index] == 100;
 }
 
 bool AStarPlanner::in_set(const Node node, const std::vector<Node> &set)
