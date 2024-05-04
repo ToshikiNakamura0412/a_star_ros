@@ -180,7 +180,7 @@ private:
    * @param cost cost
    * @return Motion motion
    */
-  Motion get_motion(const int dx, const int dy, const double cost);
+  Motion get_motion(const int dx, const int dy, const float cost);
 
   /**
    * @brief Check if the node is obstacle
