@@ -22,13 +22,11 @@ class ObstacleInflater
 public:
   /**
    * @brief Construct a new Obstacle Inflater object
-   *
    */
   ObstacleInflater();
 
   /**
    * @brief Process the inflation
-   *
    */
   void process();
 
