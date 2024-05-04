@@ -18,6 +18,7 @@
 #include <optional>
 #include <ros/ros.h>
 #include <string>
+#include <tf2/LinearMath/Quaternion.h>
 #include <vector>
 
 /**
@@ -249,6 +250,23 @@ private:
    * @return Node parent node
    */
   Node get_parent_node(const Node node, const std::vector<Node> &closed_set);
+
+  /**
+   * @brief Add direction to path
+   *
+   * @param goal goal pose
+   * @param path path
+   */
+  void add_direction_to_path(const geometry_msgs::Pose &goal, nav_msgs::Path &path);
+
+  /**
+   * @brief Calculate direction
+   *
+   * @param point1 point1
+   * @param point2 point2
+   * @return geometry_msgs::Quaternion direction
+    */
+  geometry_msgs::Quaternion calc_direction(const geometry_msgs::Point &point1, const geometry_msgs::Point &point2);
 
   /**
    * @brief Show node point

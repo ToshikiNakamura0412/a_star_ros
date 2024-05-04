@@ -62,6 +62,7 @@ void AStarPlanner::process()
       Node start_node = pose2node(initial_pose_.value(), map_.value());
       Node goal_node = pose2node(goal_.value(), map_.value());
       path = planning(start_node, goal_node, map_.value(), weight_of_heuristic_);
+      add_direction_to_path(goal_.value(), path.value());
       initial_pose_.reset();
     }
     if (path.has_value())
@@ -318,6 +319,29 @@ Node AStarPlanner::get_parent_node(const Node node, const std::vector<Node> &clo
   }
   ROS_ERROR_STREAM("The parent node is not found..");
   exit(EXIT_FAILURE);
+}
+
+void AStarPlanner::add_direction_to_path(const geometry_msgs::Pose &goal, nav_msgs::Path &path)
+{
+  for (int i = 0; i < path.poses.size() - 1; i++)
+    path.poses[i].pose.orientation = calc_direction(path.poses[i].pose.position, path.poses[i + 1].pose.position);
+  path.poses.back().pose.orientation = goal.orientation;
+}
+
+geometry_msgs::Quaternion
+AStarPlanner::calc_direction(const geometry_msgs::Point &point1, const geometry_msgs::Point &point2)
+{
+  const float yaw = atan2(point2.y - point1.y, point2.x - point1.x);
+  tf2::Quaternion q;
+  q.setRPY(0, 0, yaw);
+
+  geometry_msgs::Quaternion q_msg;
+  q_msg.x = q.x();
+  q_msg.y = q.y();
+  q_msg.z = q.z();
+  q_msg.w = q.w();
+
+  return q_msg;
 }
 
 // for debug
