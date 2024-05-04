@@ -8,8 +8,9 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
-  <depend>roscpp</depend>
+  <depend>geometry_msgs</depend>
   <depend>nav_msgs</depend>
+  <depend>roscpp</depend>
 
   <test_depend>rostest</test_depend>
   <test_depend>roslint</test_depend>

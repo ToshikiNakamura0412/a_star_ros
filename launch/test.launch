@@ -7,5 +7,11 @@
     <node pkg="a_star_ros" type="obstacle_inflater_node" name="obstacle_inflater" output="screen">
         <param name="inflation_radius" value="0.15"/>
     </node>
+    <node pkg="a_star_ros" type="a_star_node" name="a_star_planner" output="screen">
+        <param name="global_frame" value="map"/>
+        <param name="debug_mode" value="false"/>
+        <param name="sleep_time" value="0.01"/>
+        <remap from="map" to="/map/inflated_map"/>
+    </node>
     <node pkg="map_server" type="map_server" name="map_server" args="$(arg map_path)" output="screen"/>
 </launch>
