@@ -32,7 +32,7 @@ AStarPlanner::AStarPlanner() : private_nh_("~")
     neighbor_nodes_pub_ = nh_.advertise<geometry_msgs::PoseArray>("neighbor_nodes", 1);
   }
 
-  ROS_INFO_STREAM(ros::this_node::getName() << "node has started..");
+  ROS_INFO_STREAM(ros::this_node::getName() << " node has started..");
   ROS_INFO_STREAM("hz: " << hz_);
   ROS_INFO_STREAM("global_frame: " << global_frame_);
   ROS_INFO_STREAM("weight_of_heuristic: " << weight_of_heuristic_);
