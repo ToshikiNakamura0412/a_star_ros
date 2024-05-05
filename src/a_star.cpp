@@ -415,7 +415,7 @@ void AStarPlanner::show_node_set(const std::vector<Node> &set, const ros::Publis
 
 int main(int argc, char *argv[])
 {
-  ros::init(argc, argv, "obstacle_inflater");
+  ros::init(argc, argv, "a_star_planner");
   AStarPlanner a_star_planner;
   a_star_planner.process();
 
