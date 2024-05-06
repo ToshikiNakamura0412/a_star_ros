@@ -2,7 +2,6 @@
  * @file a_star.h
  * @author Toshiki Nakamura
  * @brief C++ implementation of A* algorithm
- * @date 2024-05-04
  * @copyright Copyright (c) 2024
  */
 
@@ -22,6 +21,7 @@
 #include <vector>
 
 /**
+ * @struct Node
  * @brief Node Struct
  */
 struct Node
@@ -34,6 +34,7 @@ struct Node
 };
 
 /**
+ * @struct Motion
  * @brief Motion Struct
  */
 struct Motion
