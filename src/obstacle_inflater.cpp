@@ -10,7 +10,7 @@
 
 #include "obstacle_inflater/obstacle_inflater.h"
 
-ObstacleInflater::ObstacleInflater() : private_nh_("~")
+ObstacleInflater::ObstacleInflater(void) : private_nh_("~")
 {
   private_nh_.param<int>("hz", hz_, 1);
   private_nh_.param<float>("inflation_radius", inflation_radius_, 0.15);
@@ -23,7 +23,7 @@ ObstacleInflater::ObstacleInflater() : private_nh_("~")
   ROS_INFO_STREAM("inflation_radius: " << inflation_radius_);
 }
 
-void ObstacleInflater::process()
+void ObstacleInflater::process(void)
 {
   ros::Rate loop_rate(hz_);
   while (ros::ok())

@@ -22,12 +22,12 @@ public:
   /**
    * @brief Construct a new Obstacle Inflater object
    */
-  ObstacleInflater();
+  ObstacleInflater(void);
 
   /**
    * @brief Process the inflation
    */
-  void process();
+  void process(void);
 
 private:
   /**
