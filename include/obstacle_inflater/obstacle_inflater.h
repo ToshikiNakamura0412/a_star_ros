@@ -2,7 +2,6 @@
  * @file obstacle_inflater.h
  * @author Toshiki Nakamura
  * @brief C++ implementation of obstacle inflater
- * @date 2024-05-04
  * @copyright Copyright (c) 2024
  */
 

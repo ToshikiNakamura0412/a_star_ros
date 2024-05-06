@@ -2,7 +2,6 @@
  * @file a_star.cpp
  * @author Toshiki Nakamura
  * @brief C++ implementation of A* algorithm
- * @date 2024-05-04
  * @copyright Copyright (c) 2024
  */
 
