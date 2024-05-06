@@ -10,7 +10,7 @@
 
 #include "a_star/a_star.h"
 
-AStarPlanner::AStarPlanner() : private_nh_("~")
+AStarPlanner::AStarPlanner(void) : private_nh_("~")
 {
   private_nh_.param<int>("hz", hz_, 2);
   private_nh_.param<std::string>("global_frame", global_frame_, std::string("map"));
@@ -48,7 +48,7 @@ void AStarPlanner::initial_pose_callback(const geometry_msgs::PoseWithCovariance
 
 void AStarPlanner::goal_callback(const geometry_msgs::PoseStamped::ConstPtr &msg) { goal_ = msg->pose; }
 
-void AStarPlanner::process()
+void AStarPlanner::process(void)
 {
   ros::Rate loop_rate(hz_);
   std::optional<nav_msgs::Path> path;
@@ -252,7 +252,7 @@ Node AStarPlanner::get_neighbor_node(const Node current_node, const Motion motio
   return neighbor_node;
 }
 
-std::vector<Motion> AStarPlanner::create_motion_model()
+std::vector<Motion> AStarPlanner::create_motion_model(void)
 {
   std::vector<Motion> motion_set;
   motion_set.push_back(get_motion(1, 0, 1));

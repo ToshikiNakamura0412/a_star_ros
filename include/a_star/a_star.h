@@ -55,12 +55,12 @@ public:
   /**
    * @brief Construct a new A Star Planner object
    */
-  AStarPlanner();
+  AStarPlanner(void);
 
   /**
    * @brief Process A* search algorithm
    */
-  void process();
+  void process(void);
 
 private:
   /**
@@ -192,7 +192,7 @@ private:
    *
    * @return std::vector<Motion> motion model
    */
-  std::vector<Motion> create_motion_model();
+  std::vector<Motion> create_motion_model(void);
 
   /**
    * @brief Get motion
