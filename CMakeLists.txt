@@ -30,8 +30,8 @@ target_link_libraries(a_star_node ${catkin_LIBRARIES})
 ## Testing ##
 #############
 if(CATKIN_ENABLE_TESTING)
-    find_package(rostest REQUIRED)
-    find_package(roslint REQUIRED)
-    roslint_cpp()
-    roslint_add_test()
+  find_package(rostest REQUIRED)
+  find_package(roslint REQUIRED)
+  roslint_cpp()
+  roslint_add_test()
 endif()
