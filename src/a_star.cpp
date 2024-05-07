@@ -82,6 +82,8 @@ void AStarPlanner::process(void)
     {
       path.value().header.stamp = ros::Time::now();
       path.value().header.frame_id = global_frame_;
+      for (auto &pose : path.value().poses)
+        pose.header = path.value().header;
       path_pub_.publish(path.value());
     }
 
