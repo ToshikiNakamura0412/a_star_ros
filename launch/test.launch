@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <launch>
-    <arg name="rviz_path" default="$(find a_star_ros)/launch/rviz.rviz"/>
+    <arg name="use_local_map" default="false"/>
+
+    <arg name="rviz_path" default="$(find a_star_ros)/launch/rviz.rviz" unless="$(arg use_local_map)"/>
+    <arg name="rviz_path" default="$(find a_star_ros)/launch/local.rviz" if="$(arg use_local_map)"/>
     <arg name="map_path" default="$(find a_star_ros)/maps/map.yaml"/>
     <arg name="inflation_radius" default="0.15"/>
     <arg name="debug_mode" default="false"/>
@@ -10,5 +13,14 @@
     <include file="$(find a_star_ros)/launch/a_star.launch">
         <arg name="inflation_radius" value="$(arg inflation_radius)"/>
         <arg name="debug_mode" value="$(arg debug_mode)"/>
+        <arg name="raw_map_topic" default="/local_map" if="$(arg use_local_map)"/>
     </include>
+
+    <group if="$(arg use_local_map)">
+        <include file="$(find scan_to_pcl_ros)/launch/scan_to_pcl.launch">
+            <arg name="frame_id" value="base_link"/>
+        </include>
+        <include file="$(find raycast_mapping_ros)/launch/raycast_mapping.launch"/>
+        <include file="$(find a_star_ros)/launch/gazebo.launch"/>
+    </group>
 </launch>

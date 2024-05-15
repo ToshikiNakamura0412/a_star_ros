@@ -2,8 +2,10 @@
 <launch>
     <!-- obstacle_inflater_node -->
     <arg name="inflation_radius" default="0.15"/>
+    <arg name="raw_map_topic" default="/map"/>
     <node pkg="a_star_ros" type="obstacle_inflater_node" name="obstacle_inflater" output="screen">
         <param name="inflation_radius" value="$(arg inflation_radius)"/>
+        <remap from="/map" to="$(arg raw_map_topic)"/>
     </node>
 
     <!-- a_star_node -->
