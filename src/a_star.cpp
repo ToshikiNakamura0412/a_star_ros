@@ -39,7 +39,12 @@ AStarPlanner::AStarPlanner(void) : private_nh_("~")
   ROS_INFO_STREAM("sleep_time: " << sleep_time_);
 }
 
-void AStarPlanner::map_callback(const nav_msgs::OccupancyGrid::ConstPtr &msg) { map_ = *msg; }
+void AStarPlanner::map_callback(const nav_msgs::OccupancyGrid::ConstPtr &msg)
+{
+  map_ = *msg;
+  if (map_.value().header.frame_id == "base_link")
+    initial_pose_ = geometry_msgs::PoseWithCovarianceStamped().pose.pose;
+}
 
 void AStarPlanner::initial_pose_callback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &msg)
 {
@@ -58,6 +63,9 @@ void AStarPlanner::process(void)
 
     if (map_.has_value() && initial_pose_.has_value() && goal_.has_value())
     {
+      if (map_.value().header.frame_id == "base_link")
+        initial_pose_ = geometry_msgs::PoseWithCovarianceStamped().pose.pose;
+
       Node start_node = pose2node(initial_pose_.value(), map_.value());
       Node goal_node = pose2node(goal_.value(), map_.value());
       if (is_obs(start_node, map_.value()) || is_obs(goal_node, map_.value()))
@@ -81,7 +89,7 @@ void AStarPlanner::process(void)
     if (path.has_value())
     {
       path.value().header.stamp = ros::Time::now();
-      path.value().header.frame_id = global_frame_;
+      path.value().header.frame_id = map_.value().header.frame_id;
       for (auto &pose : path.value().poses)
         pose.header = path.value().header;
       path_pub_.publish(path.value());
@@ -380,7 +388,7 @@ void AStarPlanner::show_node_point(const Node node)
   {
     geometry_msgs::PointStamped current_node_;
     current_node_.header.stamp = ros::Time::now();
-    current_node_.header.frame_id = global_frame_;
+    current_node_.header.frame_id = map_.value().header.frame_id;
     current_node_.point.x = node.index_x * map_.value().info.resolution + map_.value().info.origin.position.x;
     current_node_.point.y = node.index_y * map_.value().info.resolution + map_.value().info.origin.position.y;
     current_node_pub_.publish(current_node_);
@@ -395,7 +403,7 @@ void AStarPlanner::show_node_set(const std::vector<Node> &set, const ros::Publis
   {
     geometry_msgs::PoseArray pose_array;
     pose_array.header.stamp = ros::Time::now();
-    pose_array.header.frame_id = global_frame_;
+    pose_array.header.frame_id = map_.value().header.frame_id;
     for (const auto &node : set)
     {
       geometry_msgs::Pose pose;
