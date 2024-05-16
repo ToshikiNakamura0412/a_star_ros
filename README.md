@@ -5,6 +5,10 @@
 
 ROS implementation of A* search algorithm
 
+<p align="center">
+  <img src="https://github.com/ToshikiNakamura0412/amr_navigation_gifs/blob/master/images/a_star.gif" height="320px"/>
+</p>
+
 ## Environment
 - Ubuntu 20.04
 - ROS Noetic
@@ -31,6 +35,17 @@ roslaunch a_star_ros a_star.launch
 ```
 roslaunch a_star_ros test.launch
 ```
+<p align="center">
+  <img src="https://github.com/ToshikiNakamura0412/amr_navigation_gifs/blob/master/images/a_star_demo1.gif" height="320px"/>
+</p>
+
+### Basic with debug
+```
+roslaunch a_star_ros test.launch debug_mode:=true
+```
+<p align="center">
+  <img src="https://github.com/ToshikiNakamura0412/amr_navigation_gifs/blob/master/images/a_star_demo2.gif" height="320px"/>
+</p>
 
 ### Planning for local map
 ```
@@ -51,6 +66,10 @@ catkin build -DCMAKE_BUILD_TYPE=Release
 export TURTLEBOT3_MODEL=burger
 roslaunch a_star_ros test.launch use_local_map:=true
 ```
+<p align="center">
+  <img src="https://github.com/ToshikiNakamura0412/amr_navigation_gifs/blob/master/images/a_star_demo3.gif" height="320px"/>
+</p>
+
 
 ## Node I/O
 ![Node I/O](images/a_star_io.png)
