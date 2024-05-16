@@ -9,7 +9,6 @@
     </node>
 
     <!-- a_star_node -->
-    <arg name="global_frame" default="map"/>
     <arg name="debug_mode" default="false"/>
     <arg name="sleep_time" default="0.01"/>
     <arg name="map_topic" default="/map/inflated"/>
@@ -18,7 +17,6 @@
     <node pkg="a_star_ros" type="a_star_node" name="a_star_planner" output="screen">
         <param name="debug_mode" value="$(arg debug_mode)"/>
         <param name="sleep_time" value="$(arg sleep_time)"/>
-        <param name="global_frame" value="$(arg global_frame)"/>
         <remap from="/map" to="$(arg map_topic)"/>
         <remap from="/initialpose" to="$(arg initial_pose_topic)"/>
         <remap from="/move_base_simple/goal" to="$(arg goal_pose_topic)"/>
