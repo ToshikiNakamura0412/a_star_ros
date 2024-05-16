@@ -51,10 +51,21 @@ roslaunch a_star_ros test.launch use_local_map:=true
 ```
 
 ## Node I/O
-WIP
+![Node I/O](images/a_star_io.png)
 
 ### Published/Subscribed Topics
-WIP
+#### Published Topics
+- ~\<name>/path (`nav_msgs/Path`)
+  - planned path
+
+#### Subscribed Topics
+- /map (`nav_msgs/OccupancyGrid`)
+  - costmap
+  - the cells with an occupancy probability of 100 are considered as obstacles
+- /initialpose (`geometry_msgs/PoseWithCovarianceStamped`)
+  - start pose
+- /move_base_simple/goal (`geometry_msgs/PoseStamped`)
+  - goal pose
 
 ## Parameters
 WIP
