@@ -32,10 +32,12 @@ roslaunch a_star_ros a_star.launch
 roslaunch a_star_ros test.launch
 ```
 
-### planning for local map
+### Planning for local map
 ```
 # clone repository
 cd /path/to/your/catkin_ws/src
+git clone https://github.com/ToshikiNakamura0412/raycast_mapping_ros.git
+git clone https://github.com/ToshikiNakamura0412/scan_to_pcl_ros.git
 git clone -b noetic-devel https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
 git clone -b noetic-devel https://github.com/ROBOTIS-GIT/turtlebot3.git
 git clone -b noetic-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
@@ -59,11 +61,11 @@ roslaunch a_star_ros test.launch use_local_map:=true
   - planned path
 
 #### Subscribed Topics
+- /initialpose (`geometry_msgs/PoseWithCovarianceStamped`)
+  - start pose
 - /map (`nav_msgs/OccupancyGrid`)
   - costmap
   - the cells with an occupancy probability of 100 are considered as obstacles
-- /initialpose (`geometry_msgs/PoseWithCovarianceStamped`)
-  - start pose
 - /move_base_simple/goal (`geometry_msgs/PoseStamped`)
   - goal pose
 
