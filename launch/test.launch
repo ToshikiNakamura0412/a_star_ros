@@ -11,6 +11,7 @@
     <node pkg="rviz" type="rviz" name="rviz" args="-d $(arg rviz_path)"/>
     <node pkg="map_server" type="map_server" name="map_server" args="$(arg map_path)" output="screen"/>
     <include file="$(find a_star_ros)/launch/a_star.launch">
+        <arg name="output" value="screen"/>
         <arg name="inflation_radius" value="$(arg inflation_radius)"/>
         <arg name="debug_mode" value="$(arg debug_mode)"/>
         <arg name="raw_map_topic" default="/local_map" if="$(arg use_local_map)"/>
