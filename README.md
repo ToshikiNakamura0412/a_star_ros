@@ -91,7 +91,7 @@ roslaunch a_star_ros test.launch use_local_map:=true
 
 #### Parameters
 - ~\<name>/<b>hz</b> (int, default: `2` [Hz]):<br>
-  The rate of main loop
+  - The rate of main loop
 - ~\<name>/<b>weight_of_heuristic</b> (float, default: `1.0`):<br>
   - The weight of heuristic
 - ~\<name>/<b>debug_mode</b> (bool, default: `false`):<br>
@@ -117,9 +117,9 @@ roslaunch a_star_ros test.launch use_local_map:=true
 
 #### Parameters
 - ~\<name>/<b>hz</b> (int, default: `1` [Hz]):<br>
-  The rate of main loop
+  - The rate of main loop
 - ~\<name>/<b>inflation_radius</b> (float, default: `0.15` [m]):<br>
-  The robot radius
+  - The robot radius
 
 ## References
 - https://myenigma.hatenablog.com/entry/20140503/1399080847
